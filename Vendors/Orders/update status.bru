@@ -1,0 +1,76 @@
+meta {
+  name: update status
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{URL}}/api/v1/vendor/orders/2/status
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{VENDOR_TOKEN}}
+}
+
+body:json {
+  {
+      "status": "pending", // pending, processing, ready, cancelled
+      "cancel_reason": null // required if the status is cancelled
+  } 
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: success
+  
+  request: {
+    url: {{URL}}/api/v1/vendor/orders/2/status
+    method: PUT
+    mode: json
+    headers: {
+      Accept: application/json
+      Authorization: Bearer {{VENDOR_TOKEN}}
+    }
+  
+    body:json: {
+      {
+          "status": "pending", // pending, processing, ready, cancelled
+          "cancel_reason": null // required if the status is cancelled
+      } 
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sun, 28 Dec 2025 14:45:42 GMT
+      Access-Control-Allow-Origin: *
+    }
+  
+    status: {
+      code: Unprocessable Content
+      text: 422
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": false,
+            "message": "Invalid status transition from collected to pending"
+        }
+      '''
+    }
+  }
+}

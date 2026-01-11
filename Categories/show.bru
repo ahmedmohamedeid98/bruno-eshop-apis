@@ -1,0 +1,67 @@
+meta {
+  name: show
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{URL}}/api/v1/categories/1
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: New Request
+  
+  request: {
+    url: {{URL}}/api/v1/categories/1
+    method: GET
+    mode: none
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sat, 13 Dec 2025 15:37:54 GMT
+      Access-Control-Allow-Origin: *
+      Content-Encoding: gzip
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "message": null,
+            "data": {
+                "id": 1,
+                "name": "إلكترونيات",
+                "slug": "alktronyat",
+                "image": null,
+                "description": null,
+                "parent_id": null,
+                "is_active": true,
+                "sort_order": 0,
+                "children": [],
+                "products_count": 10
+            }
+        }
+      '''
+    }
+  }
+}

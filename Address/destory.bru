@@ -1,0 +1,71 @@
+meta {
+  name: destory
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{URL}}/api/v1/addresses/1
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{USER_TOKEN}}
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Generated from cURL: curl --location --request DELETE 'http://localhost:8000/api/v1/addresses/1' \
+  --header 'Accept: application/json' \
+  --header 'Authorization: Bearer YOUR_TOKEN_HERE'
+}
+
+example {
+  name: success
+  
+  request: {
+    url: {{URL}}/api/v1/addresses/1
+    method: DELETE
+    mode: none
+    headers: {
+      Accept: application/json
+      Authorization: Bearer {{USER_TOKEN}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sat, 20 Dec 2025 17:24:37 GMT
+      Access-Control-Allow-Origin: *
+      Content-Encoding: gzip
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "message": "Address deleted successfully",
+            "data": null
+        }
+      '''
+    }
+  }
+}

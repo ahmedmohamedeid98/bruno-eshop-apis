@@ -1,0 +1,115 @@
+meta {
+  name: verify-otp
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{URL}}/api/v1/vendor/auth/verify-otp
+  body: multipartForm
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+}
+
+body:multipart-form {
+  phone: 01111111111
+  code: 1234567
+  method: whatsapp
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: success
+  
+  request: {
+    url: {{URL}}/api/v1/vendor/auth/verify-otp
+    method: POST
+    mode: multipartForm
+    headers: {
+      Accept: application/json
+    }
+  
+    body:multipart-form: {
+      phone: 01111111111
+      code: 123456
+      method: whatsapp
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sat, 13 Dec 2025 22:30:50 GMT
+      Access-Control-Allow-Origin: *
+      Content-Encoding: gzip
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "message": "Login successful",
+            "data": {
+                "vendor": {
+                    "id": 1,
+                    "name": "متجر الإلكترونيات",
+                    "description": "أفضل متجر للإلكترونيات في شمال سيناء",
+                    "logo": null,
+                    "phone": "01111111111",
+                    "address": "العريش، شمال سيناء",
+                    "latitude": null,
+                    "longitude": null,
+                    "is_featured": false,
+                    "categories": [
+                        {
+                            "id": 2,
+                            "name": "ملابس",
+                            "image": null
+                        },
+                        {
+                            "id": 3,
+                            "name": "أغذية ومشروبات",
+                            "image": null
+                        },
+                        {
+                            "id": 4,
+                            "name": "مستلزمات منزلية",
+                            "image": null
+                        },
+                        {
+                            "id": 5,
+                            "name": "صحة وجمال",
+                            "image": null
+                        },
+                        {
+                            "id": 6,
+                            "name": "رياضة وترفيه",
+                            "image": null
+                        }
+                    ]
+                },
+                "token": "2|A1mtDpRytdDtucGsRiAR0kmcAvTvYfn8ixVkoVpVfb765991"
+            }
+        }
+      '''
+    }
+  }
+}

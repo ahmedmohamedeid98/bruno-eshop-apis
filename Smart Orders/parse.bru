@@ -1,0 +1,115 @@
+meta {
+  name: parse
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{URL}}/api/v1/smart-order/parse
+  body: multipartForm
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{USER_TOKEN}}
+}
+
+body:multipart-form {
+  text: ٢ ك فلفل و ٥ كيلو بطاطس و كيلو بصل
+  name: تسويقه
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: success
+  
+  request: {
+    url: {{URL}}/api/v1/smart-order/parse
+    method: POST
+    mode: multipartForm
+    headers: {
+      Accept: application/json
+      Authorization: Bearer {{USER_TOKEN}}
+    }
+  
+    body:multipart-form: {
+      text: ٢ ك فلفل و ٥ كيلو بطاطس و كيلو بصل
+      name: تسويقه
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sun, 14 Dec 2025 13:11:58 GMT
+      Access-Control-Allow-Origin: *
+      Content-Encoding: gzip
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "message": "تم تحليل الطلب وحفظه بنجاح",
+            "data": {
+                "smart_order_id": 2,
+                "items": [
+                    {
+                        "productId": "6",
+                        "name": "فلفل رومي",
+                        "price": 12,
+                        "image": "http://eshop.test/storage/https://picsum.photos/300/300?random=105",
+                        "quantity": 2,
+                        "vendorId": "2",
+                        "vendorName": "متجر الأزياء العصرية",
+                        "variationId": null,
+                        "variationName": null
+                    },
+                    {
+                        "productId": "3",
+                        "name": "بطاطس",
+                        "price": 5.5,
+                        "image": "http://eshop.test/storage/https://picsum.photos/300/300?random=102",
+                        "quantity": 5,
+                        "vendorId": "2",
+                        "vendorName": "متجر الأزياء العصرية",
+                        "variationId": null,
+                        "variationName": null
+                    },
+                    {
+                        "productId": "4",
+                        "name": "بصل",
+                        "price": 7,
+                        "image": "http://eshop.test/storage/https://picsum.photos/300/300?random=103",
+                        "quantity": 1,
+                        "vendorId": "4",
+                        "vendorName": "متجر المنزل الذكي",
+                        "variationId": null,
+                        "variationName": null
+                    }
+                ],
+                "totalItems": 8,
+                "totalPrice": 58.5,
+                "currency": "EGP"
+            }
+        }
+      '''
+    }
+  }
+}

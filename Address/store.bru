@@ -1,0 +1,103 @@
+meta {
+  name: store
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{URL}}/api/v1/addresses
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{USER_TOKEN}}
+}
+
+body:json {
+  // {
+  //     "type": "manual",
+  //     "area_id": 1,
+  //     "street": "شارع العمارين",
+  //     "note": "خلف مسجد المحطة"
+  // }
+  {
+      "type": "map",
+      "latitude": "31.019180",
+      "longitude": "32.856752",
+      "formatted_address": "Birleb North Sinai"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: success
+  
+  request: {
+    url: {{URL}}/api/v1/addresses
+    method: POST
+    mode: json
+    headers: {
+      Accept: application/json
+      Authorization: Bearer {{USER_TOKEN}}
+    }
+  
+    body:json: {
+      // {
+      //     "type": "manual",
+      //     "area_id": 1,
+      //     "streat": "شارع العمارين",
+      //     "note": "خلف مسجد المحطة"
+      // }
+      {
+          "type": "map",
+          "latitude": "30.0302",
+          "longitude": "31.2341",
+          "formatted_address": "Birleb North Sinai"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sat, 20 Dec 2025 14:02:13 GMT
+      Access-Control-Allow-Origin: *
+    }
+  
+    status: {
+      code: Created
+      text: 201
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "message": "Address created successfully",
+            "data": {
+                "id": 1,
+                "type": "map",
+                "latitude": 30.0302,
+                "longitude": 31.2341,
+                "formatted_address": "Birleb North Sinai",
+                "street": null,
+                "note": null,
+                "full_address": "Birleb North Sinai",
+                "is_default": null
+            }
+        }
+      '''
+    }
+  }
+}

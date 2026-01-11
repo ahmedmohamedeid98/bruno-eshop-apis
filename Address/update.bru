@@ -1,0 +1,274 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{URL}}/api/v1/addresses/1
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+  Authorization: Bearer {{USER_TOKEN}}
+}
+
+body:json {
+  // {
+  //     "type": "map",
+  //     "latitude": 30.0500,
+  //     "longitude": 31.2400,
+  //     "formatted_address": "123 Main Street, Cairo, Egypt",
+  //     "note": "Near the big mosque",
+  //     "is_default": true
+  // }
+  {
+      "type": "manual",
+      "area_id": 1,
+      "street": "15 Ahmed St, Block 5",
+      "note": "Apartment 402, 4th floor",
+      "is_default": false
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Generated from cURL: curl --location --request PUT 'http://localhost:8000/api/v1/addresses/1' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer YOUR_TOKEN_HERE' \
+  --data '{
+      "type": "map",
+      "latitude": 30.0500,
+      "longitude": 31.2400,
+      "formatted_address": "123 Main Street, Cairo, Egypt",
+      "note": "Near the big mosque",
+      "is_default": true
+  }'
+}
+
+example {
+  name: success
+  
+  request: {
+    url: {{URL}}/api/v1/addresses/1
+    method: PUT
+    mode: json
+    headers: {
+      Accept: application/json
+      Content-Type: application/json
+      Authorization: Bearer {{USER_TOKEN}}
+    }
+  
+    body:json: {
+      {
+          "type": "map",
+          "latitude": 30.0500,
+          "longitude": 31.2400,
+          "formatted_address": "123 Main Street, Cairo, Egypt",
+          "note": "Near the big mosque",
+          "is_default": true
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sat, 20 Dec 2025 17:19:52 GMT
+      Access-Control-Allow-Origin: *
+      Content-Encoding: gzip
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "message": "Address updated successfully",
+            "data": {
+                "id": 1,
+                "type": "map",
+                "latitude": 30.05,
+                "longitude": 31.24,
+                "formatted_address": "123 Main Street, Cairo, Egypt",
+                "distance_from_store_km": 200.65,
+                "street": null,
+                "note": "Near the big mosque",
+                "full_address": "123 Main Street, Cairo, Egypt - Near the big mosque",
+                "is_default": true
+            }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: success
+  
+  request: {
+    url: {{URL}}/api/v1/addresses/1
+    method: PUT
+    mode: json
+    headers: {
+      Accept: application/json
+      Content-Type: application/json
+      Authorization: Bearer {{USER_TOKEN}}
+    }
+  
+    body:json: {
+      // {
+      //     "type": "map",
+      //     "latitude": 30.0500,
+      //     "longitude": 31.2400,
+      //     "formatted_address": "123 Main Street, Cairo, Egypt",
+      //     "note": "Near the big mosque",
+      //     "is_default": true
+      // }
+      {
+          "type": "manual",
+          "area_id": 1,
+          "street": "15 Ahmed St, Block 5",
+          "note": "Apartment 402, 4th floor",
+          "is_default": false
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sat, 20 Dec 2025 17:20:50 GMT
+      Access-Control-Allow-Origin: *
+      Content-Encoding: gzip
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "message": "Address updated successfully",
+            "data": {
+                "id": 1,
+                "type": "manual",
+                "latitude": 30.05,
+                "longitude": 31.24,
+                "formatted_address": "123 Main Street, Cairo, Egypt",
+                "street": "15 Ahmed St, Block 5",
+                "note": "Apartment 402, 4th floor",
+                "full_address": "العريش, 15 Ahmed St, Block 5, Apartment 402, 4th floor",
+                "is_default": false
+            }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: success
+  
+  request: {
+    url: {{URL}}/api/v1/addresses/1
+    method: PUT
+    mode: json
+    headers: {
+      Accept: application/json
+      Content-Type: application/json
+      Authorization: Bearer {{USER_TOKEN}}
+    }
+  
+    body:json: {
+      // {
+      //     "type": "map",
+      //     "latitude": 30.0500,
+      //     "longitude": 31.2400,
+      //     "formatted_address": "123 Main Street, Cairo, Egypt",
+      //     "note": "Near the big mosque",
+      //     "is_default": true
+      // }
+      // {
+      //     "type": "manual",
+      //     "area_id": 1,
+      //     "street": "15 Ahmed St, Block 5",
+      //     "note": "Apartment 402, 4th floor",
+      //     "is_default": false
+      // }
+      {
+          "note": "Updated note - Ring the bell twice",
+          "is_default": true
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sat, 20 Dec 2025 17:22:10 GMT
+      Access-Control-Allow-Origin: *
+      Content-Encoding: gzip
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "message": "Address updated successfully",
+            "data": {
+                "id": 1,
+                "type": "manual",
+                "latitude": 30.05,
+                "longitude": 31.24,
+                "formatted_address": "123 Main Street, Cairo, Egypt",
+                "street": "15 Ahmed St, Block 5",
+                "note": "Updated note - Ring the bell twice",
+                "full_address": "العريش, 15 Ahmed St, Block 5, Updated note - Ring the bell twice",
+                "is_default": true
+            }
+        }
+      '''
+    }
+  }
+}

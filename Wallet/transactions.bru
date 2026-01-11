@@ -1,0 +1,122 @@
+meta {
+  name: transactions
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{URL}}/api/v1/vendor/wallet/transactions
+  body: none
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{VENDOR_TOKEN}}
+}
+
+settings {
+  encodeUrl: true
+}
+
+example {
+  name: success
+  
+  request: {
+    url: {{URL}}/api/v1/vendor/wallet
+    method: GET
+    mode: none
+    headers: {
+      Accept: application/json
+      Authorization: Bearer {{VENDOR_TOKEN}}
+    }
+  }
+  
+  response: {
+    headers: {
+      Server: nginx/1.25.4
+      Content-Type: application/json
+      Transfer-Encoding: chunked
+      Connection: keep-alive
+      Vary: Accept-Encoding
+      X-Powered-By: PHP/8.3.8
+      Cache-Control: no-cache, private
+      Date: Sat, 13 Dec 2025 22:34:13 GMT
+      Access-Control-Allow-Origin: *
+      Content-Encoding: gzip
+    }
+  
+    status: {
+      code: OK
+      text: 200
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+            "success": true,
+            "message": null,
+            "data": {
+                "wallet": {
+                    "id": 1,
+                    "balance": 18,
+                    "updated_at": "2025-12-13T21:33:15+00:00"
+                },
+                "active_subscription": {
+                    "id": 2,
+                    "package": {
+                        "id": 4,
+                        "name": "باقة العمولة",
+                        "description": "ادفع نسبة من كل طلب بدلاً من اشتراك شهري",
+                        "pricing_type": "percentage",
+                        "price": 3,
+                        "percentage_tiers": [
+                            {
+                                "min": "0",
+                                "max": "500",
+                                "percentage": "5"
+                            },
+                            {
+                                "min": "500",
+                                "max": "2000",
+                                "percentage": "3"
+                            },
+                            {
+                                "min": "2000",
+                                "max": null,
+                                "percentage": "1"
+                            }
+                        ],
+                        "duration_days": 365,
+                        "duration_text": "سنوي",
+                        "features": [
+                            "منتجات غير محدودة",
+                            "دعم فني كامل",
+                            "لا يوجد رسوم شهرية",
+                            "٥٪ للطلبات اقل من ٥٠٠ج",
+                            "٣٪ للطلبات بين ٥٠٠ج و ٢٠٠٠ج",
+                            "١٪ للطلبات فوق ٢٠٠٠ج"
+                        ],
+                        "max_products": null,
+                        "max_orders_per_month": null,
+                        "is_featured": false
+                    },
+                    "starts_at": "2026-12-13T23:39:08+00:00",
+                    "ends_at": "2027-12-13T23:39:08+00:00",
+                    "auto_renew": true,
+                    "status": "active",
+                    "status_text": "نشط",
+                    "price_paid": 3,
+                    "pricing_type": "percentage",
+                    "days_remaining": 730,
+                    "is_active": true,
+                    "is_expired": false,
+                    "created_at": "2025-12-13T21:47:06+00:00"
+                }
+            }
+        }
+      '''
+    }
+  }
+}

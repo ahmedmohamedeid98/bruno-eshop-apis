@@ -1,0 +1,26 @@
+meta {
+  name: add
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{URL}}/api/v1/favorites
+  body: json
+  auth: inherit
+}
+
+headers {
+  Accept: application/json
+  Authorization: Bearer {{USER_TOKEN}}
+}
+
+body:json {
+  {
+      "product_id": 2
+  }
+}
+
+settings {
+  encodeUrl: true
+}
