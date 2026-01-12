@@ -1,0 +1,126 @@
+meta {
+  name: Update Rejected Request
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{URL}}/api/v1/wallet/charge-requests/7
+  body: multipartForm
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{USER_TOKEN}}
+  Accept: application/json
+}
+
+body:json {
+  {
+    "amount": 20,
+    "payment_method": "vodafone_cash",
+    ""
+  }
+}
+
+body:multipart-form {
+  amount: 30
+  payment_screenshot: @file(/Users/mac/Downloads/Vector 1.png)
+  notes: note
+  _method: PUT
+}
+
+body:file {
+  file: @file(/Users/mac/Downloads/doors.png) @contentType(image/png)
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: example
+  
+  request: {
+    url: {{URL}}/api/v1/wallet/charge-requests/7
+    method: POST
+    mode: file
+    headers: {
+      Authorization: Bearer {{USER_TOKEN}}
+      Accept: application/json
+    }
+  
+    body:json: {
+      {
+        "amount": 20,
+        "payment_method": "vodafone_cash",
+        ""
+      }
+    }
+  
+    body:multipart-form: {
+      amount: 30
+      payment_screenshot: @file(/Users/mac/Downloads/Vector 1.png)
+      notes: note
+      _method: PUT
+    }
+  
+    body:file: {
+      file: @file(/Users/mac/Downloads/doors.png) @contentType(image/png)
+    }
+  }
+  
+  response: {
+    headers: {
+      server: nginx/1.25.4
+      content-type: application/json
+      transfer-encoding: chunked
+      connection: keep-alive
+      vary: Accept-Encoding
+      x-powered-by: PHP/8.3.8
+      cache-control: no-cache, private
+      date: Mon, 12 Jan 2026 22:27:28 GMT
+      x-ratelimit-limit: 10
+      x-ratelimit-remaining: 5
+      access-control-allow-origin: *
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": true,
+          "message": "تم إعادة إرسال الطلب بنجاح",
+          "data": {
+            "request": {
+              "id": 9,
+              "amount": 30,
+              "payment_method": "instapay",
+              "payment_method_text": "انستاباي",
+              "payment_reference": null,
+              "payment_screenshot": "/storage/wallet-charge-requests/dqSms9yvir8kBFZK5PR0gNrFA1X0kzc9WrPsrcNH.png",
+              "notes": "note",
+              "status": "pending",
+              "status_text": "قيد المراجعة",
+              "rejection_reason": null,
+              "is_resubmission": true,
+              "original_request_id": 7,
+              "can_be_resubmitted": false,
+              "reviewed_at": null,
+              "transaction_id": null,
+              "created_at": "2026-01-12T22:27:28+00:00",
+              "updated_at": "2026-01-12T22:27:28+00:00"
+            },
+            "message": "تم إعادة إرسال الطلب بنجاح"
+          }
+        }
+      '''
+    }
+  }
+}

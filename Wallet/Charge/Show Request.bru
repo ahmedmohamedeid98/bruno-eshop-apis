@@ -1,0 +1,113 @@
+meta {
+  name: Show Request
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{URL}}/api/v1/wallet/charge-requests/7
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{USER_TOKEN}}
+  Accept: application/json
+}
+
+body:json {
+  {
+    "amount": 20,
+    "payment_method": "vodafone_cash",
+    ""
+  }
+}
+
+body:file {
+  file: @file(/Users/mac/Downloads/doors.png) @contentType(image/png)
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: example
+  
+  request: {
+    url: {{URL}}/api/v1/wallet/charge-requests/7
+    method: GET
+    mode: none
+    headers: {
+      Authorization: Bearer {{USER_TOKEN}}
+      Accept: application/json
+    }
+  
+    body:json: {
+      {
+        "amount": 20,
+        "payment_method": "vodafone_cash",
+        ""
+      }
+    }
+  
+    body:file: {
+      file: @file(/Users/mac/Downloads/doors.png) @contentType(image/png)
+    }
+  }
+  
+  response: {
+    headers: {
+      server: nginx/1.25.4
+      content-type: application/json
+      transfer-encoding: chunked
+      connection: keep-alive
+      vary: Accept-Encoding
+      x-powered-by: PHP/8.3.8
+      cache-control: no-cache, private
+      date: Mon, 12 Jan 2026 22:22:29 GMT
+      access-control-allow-origin: *
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": true,
+          "message": null,
+          "data": {
+            "request": {
+              "id": 7,
+              "amount": 88,
+              "payment_method": "instapay",
+              "payment_method_text": "انستاباي",
+              "payment_reference": null,
+              "payment_screenshot": "/storage/wallet-charge-requests/BDESJeroHpicVFyvDmFbdWOndZ2o05V95RfBwJSh.jpg",
+              "notes": null,
+              "status": "approved",
+              "status_text": "تم القبول",
+              "rejection_reason": null,
+              "is_resubmission": false,
+              "original_request_id": null,
+              "can_be_resubmitted": false,
+              "reviewed_by": {
+                "id": 1,
+                "name": "System Admin"
+              },
+              "reviewed_at": "2026-01-09T23:06:26+00:00",
+              "transaction_id": 6,
+              "created_at": "2026-01-09T22:57:37+00:00",
+              "updated_at": "2026-01-09T23:06:26+00:00"
+            }
+          }
+        }
+      '''
+    }
+  }
+}

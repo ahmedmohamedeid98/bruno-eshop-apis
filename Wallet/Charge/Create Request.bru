@@ -1,0 +1,192 @@
+meta {
+  name: Create Request
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{URL}}/api/v1/wallet/charge-requests
+  body: multipartForm
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{USER_TOKEN}}
+  Accept: application/json
+}
+
+body:json {
+  {
+    "amount": 20,
+    "payment_method": "vodafone_cash",
+    ""
+  }
+}
+
+body:multipart-form {
+  amount: 20
+  payment_method: vodafone_cash
+  payment_screenshot: @file(/Users/mac/Downloads/istoria_logo.png)
+  notes: yhj
+}
+
+body:file {
+  file: @file(/Users/mac/Downloads/doors.png) @contentType(image/png)
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: example
+  
+  request: {
+    url: {{URL}}/api/v1/wallet/charge-requests
+    method: POST
+    mode: file
+    headers: {
+      Authorization: Bearer {{USER_TOKEN}}
+      Accept: application/json
+    }
+  
+    body:json: {
+      {
+        "amount": 20,
+        "payment_method": "vodafone_cash",
+        ""
+      }
+    }
+  
+    body:multipart-form: {
+      amount: 20
+      payment_method: vodafone_cash
+      payment_screenshot: @file(/Users/mac/Downloads/doors.png)
+      notes: yhj
+    }
+  
+    body:file: {
+      file: @file(/Users/mac/Downloads/doors.png) @contentType(image/png)
+    }
+  }
+  
+  response: {
+    headers: {
+      server: nginx/1.25.4
+      content-type: application/json
+      transfer-encoding: chunked
+      connection: keep-alive
+      x-powered-by: PHP/8.3.8
+      cache-control: no-cache, private
+      date: Mon, 12 Jan 2026 22:12:57 GMT
+      x-ratelimit-limit: 10
+      x-ratelimit-remaining: 9
+      access-control-allow-origin: *
+    }
+  
+    status: {
+      code: 422
+      text: Unprocessable Entity
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "message": "The payment screenshot field must be a file of type: jpeg, jpg, png, gif.",
+          "errors": {
+            "payment_screenshot": [
+              "The payment screenshot field must be a file of type: jpeg, jpg, png, gif."
+            ]
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: example (1)
+  
+  request: {
+    url: {{URL}}/api/v1/wallet/charge-requests
+    method: POST
+    mode: multipartForm
+    headers: {
+      Authorization: Bearer {{USER_TOKEN}}
+      Accept: application/json
+    }
+  
+    body:json: {
+      {
+        "amount": 20,
+        "payment_method": "vodafone_cash",
+        ""
+      }
+    }
+  
+    body:multipart-form: {
+      amount: 20
+      payment_method: vodafone_cash
+      payment_screenshot: @file(/Users/mac/Downloads/istoria_logo.png)
+      notes: yhj
+    }
+  
+    body:file: {
+      file: @file(/Users/mac/Downloads/doors.png) @contentType(image/png)
+    }
+  }
+  
+  response: {
+    headers: {
+      server: nginx/1.25.4
+      content-type: application/json
+      transfer-encoding: chunked
+      connection: keep-alive
+      x-powered-by: PHP/8.3.8
+      cache-control: no-cache, private
+      date: Mon, 12 Jan 2026 22:15:15 GMT
+      x-ratelimit-limit: 10
+      x-ratelimit-remaining: 8
+      access-control-allow-origin: *
+    }
+  
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": true,
+          "message": "تم إرسال الطلب بنجاح",
+          "data": {
+            "request": {
+              "id": 8,
+              "amount": 20,
+              "payment_method": "vodafone_cash",
+              "payment_method_text": "فودافون كاش",
+              "payment_reference": null,
+              "payment_screenshot": "/storage/wallet-charge-requests/vdIYZQramh0j09m6WgzKVr07QD8qjL5ybFxHaSKo.png",
+              "notes": "yhj",
+              "status": "pending",
+              "status_text": "قيد المراجعة",
+              "rejection_reason": null,
+              "is_resubmission": false,
+              "original_request_id": null,
+              "can_be_resubmitted": false,
+              "reviewed_at": null,
+              "transaction_id": null,
+              "created_at": "2026-01-12T22:15:15+00:00",
+              "updated_at": "2026-01-12T22:15:15+00:00"
+            },
+            "message": "تم إرسال الطلب بنجاح. سيتم مراجعته من قبل الإدارة"
+          }
+        }
+      '''
+    }
+  }
+}
