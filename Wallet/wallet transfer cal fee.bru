@@ -1,0 +1,145 @@
+meta {
+  name: wallet transfer cal fee
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{URL}}/api/v1/wallet/transfer/calculate-fee
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{USER_TOKEN}}
+  Accept: application/json
+}
+
+body:json {
+  {
+    "amount": 30
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: example (1)
+  
+  request: {
+    url: {{URL}}/api/v1/wallet/transfer/calculate-fee
+    method: POST
+    mode: json
+    headers: {
+      Authorization: Bearer {{USER_TOKEN}}
+      Accept: application/json
+    }
+  
+    body:json: {
+      {
+        "amount": 30
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      server: nginx/1.25.4
+      content-type: application/json
+      transfer-encoding: chunked
+      connection: keep-alive
+      vary: Accept-Encoding
+      x-powered-by: PHP/8.3.8
+      cache-control: no-cache, private
+      date: Mon, 12 Jan 2026 04:06:09 GMT
+      access-control-allow-origin: *
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": true,
+          "message": null,
+          "data": {
+            "amount": "30.00",
+            "fee": "0.30",
+            "fee_percentage": "1",
+            "fee_fixed": 0,
+            "total_deducted": "30.30",
+            "amount_received": "30.00",
+            "sufficient_balance": true,
+            "current_balance": "148.00"
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: example (2)
+  
+  request: {
+    url: {{URL}}/api/v1/wallet/transfer/calculate-fee
+    method: POST
+    mode: json
+    headers: {
+      Authorization: Bearer {{USER_TOKEN}}
+      Accept: application/json
+    }
+  
+    body:json: {
+      {
+        "amount": 30
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      server: nginx/1.25.4
+      content-type: application/json
+      transfer-encoding: chunked
+      connection: keep-alive
+      vary: Accept-Encoding
+      x-powered-by: PHP/8.3.8
+      cache-control: no-cache, private
+      date: Mon, 12 Jan 2026 04:07:13 GMT
+      access-control-allow-origin: *
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": true,
+          "message": null,
+          "data": {
+            "amount": "30.00",
+            "fee": "0.00",
+            "fee_percentage": "0",
+            "fee_fixed": 0,
+            "total_deducted": "30.00",
+            "amount_received": "30.00",
+            "sufficient_balance": true,
+            "current_balance": "148.00"
+          }
+        }
+      '''
+    }
+  }
+}

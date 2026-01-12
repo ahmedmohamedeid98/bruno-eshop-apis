@@ -1,0 +1,152 @@
+meta {
+  name: wallet transfer validate
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{URL}}/api/v1/wallet/transfer/validate
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{USER_TOKEN}}
+  Accept: application/json
+}
+
+body:json {
+  {
+    "amount": 30,
+    "phone": "01099999999"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: example
+  
+  request: {
+    url: {{URL}}/api/v1/wallet/transfer/validate
+    method: POST
+    mode: json
+    headers: {
+      Authorization: Bearer {{USER_TOKEN}}
+      Accept: application/json
+    }
+  
+    body:json: {
+      {
+        "amount": 30,
+        "phone": "01023456789"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      server: nginx/1.25.4
+      content-type: application/json
+      transfer-encoding: chunked
+      connection: keep-alive
+      vary: Accept-Encoding
+      x-powered-by: PHP/8.3.8
+      cache-control: no-cache, private
+      date: Mon, 12 Jan 2026 04:16:33 GMT
+      access-control-allow-origin: *
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": true,
+          "message": null,
+          "data": {
+            "valid": false,
+            "errors": [
+              "لا يمكن التحويل إلى نفس المحفظة"
+            ],
+            "warnings": [],
+            "recipient_name": "علي ح***",
+            "fee_info": {
+              "amount": 30,
+              "fee": 0,
+              "total": 30
+            }
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: example (1)
+  
+  request: {
+    url: {{URL}}/api/v1/wallet/transfer/validate
+    method: POST
+    mode: json
+    headers: {
+      Authorization: Bearer {{USER_TOKEN}}
+      Accept: application/json
+    }
+  
+    body:json: {
+      {
+        "amount": 30,
+        "phone": "01099999999"
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      server: nginx/1.25.4
+      content-type: application/json
+      transfer-encoding: chunked
+      connection: keep-alive
+      vary: Accept-Encoding
+      x-powered-by: PHP/8.3.8
+      cache-control: no-cache, private
+      date: Mon, 12 Jan 2026 04:16:59 GMT
+      access-control-allow-origin: *
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "success": true,
+          "message": null,
+          "data": {
+            "valid": true,
+            "errors": [],
+            "warnings": [],
+            "recipient_name": "يونس خ***",
+            "fee_info": {
+              "amount": 30,
+              "fee": 0,
+              "total": 30
+            }
+          }
+        }
+      '''
+    }
+  }
+}
